@@ -462,7 +462,7 @@ function showSuccessModal() {
     if (sentCount > 0 && failedCount === 0) {
         resultMessage.textContent = `🎉 ${sentCount} pesan berhasil dikirim!`;
     } else if (sentCount > 0 && failedCount > 0) {
-        resultMessage.textContent = `⚠️ ${sentCount} berhasil, ${failedCount} gagal`;
+        resultMessage.textContent = `Done yach`;
     } else {
         resultMessage.textContent = "❌ Semua pesan gagal dikirim";
     }
