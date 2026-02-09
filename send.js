@@ -22,12 +22,12 @@ export default async function handler(req, res) {
 
     const cf = await verify.json();
 
-    if (!cf.success) {
-      return res.status(403).json({
-        status: false,
-        message: "Cloudflare verification failed"
-      });
-    }
+if (!cf.success) {
+  return res.status(403).json({
+    status: false,
+    cf
+  });
+}
 
     // LANJUT KE API ASLI
     const apiUrl = `https://api.deline.web.id/tools/spamngl?url=${encodeURIComponent(link)}&message=${encodeURIComponent(pesan)}`;
@@ -52,4 +52,4 @@ export default async function handler(req, res) {
       error: err.message
     });
   }
-} 
+}
