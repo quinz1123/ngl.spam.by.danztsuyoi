@@ -275,27 +275,25 @@ if (isSending) {
         clearInterval(progressInterval);
         
         
-        if (result.success) {
-            const r = result.data.result || result.data;
+if (result.success) {
 
-sentCount = Number(r.berhasil_dikirim || 0);
-failedCount = Number(r.gagal_dikirim || 0);
-            
-            
-            updateProgress(100);
-            progressText.textContent = `100% (25/25)`;
-            
-            
-            addLog(`✅ API Response: Berhasil ${sentCount}, Gagal ${failedCount}`, "success");
-            
-            
-            if (result.data.result.username_target) {
-                addLog(`🎯 Target: ${result.data.result.username_target}`, "info");
-            }
-            
-            updateStatus("✅ Selesai", `Berhasil: ${sentCount}, Gagal: ${failedCount}`, "fa-check-circle");
-            addLog(`🎉 Pengiriman selesai!`, "complete");
-        } else {
+    const r = result.data.result || result.data;
+
+    sentCount = Number(r.berhasil_dikirim || 0);
+    failedCount = Number(r.gagal_dikirim || 0);
+
+    updateProgress(100);
+    progressText.textContent = `100% (25/25)`;
+
+    addLog(`✅ API Response: Berhasil ${sentCount}, Gagal ${failedCount}`, "success");
+
+    if (r.username_target) {
+        addLog(`🎯 Target: ${r.username_target}`, "info");
+    }
+
+    updateStatus("✅ Selesai", `Berhasil: ${sentCount}, Gagal: ${failedCount}`, "fa-check-circle");
+    addLog(`🎉 Pengiriman selesai!`, "complete");
+} else {
             failedCount = 25;
             addLog(`❌ API Error: ${result.error}`, "error");
             updateStatus("❌ Gagal", "API mengembalikan error", "fa-exclamation-circle");
