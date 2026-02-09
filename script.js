@@ -9,6 +9,7 @@ const firebaseConfig = {
     appId: "1:209353731265:web:7a61d652375e065d38b840"
   };
 
+
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
@@ -179,8 +180,14 @@ openInfoPage();
 
 
 function showConfirmationModal() {
-    currentLink = linkInput.value.trim();
-    currentPesan = pesanInput.value.trim();
+
+if (!cfPassed) {
+    showAlert("Verifikasi", "Selesaikan verifikasi Cloudflare dulu");
+    return;
+}
+
+currentLink = linkInput.value.trim();
+currentPesan = pesanInput.value.trim();
 
 if (!currentLink) {
     showAlert("Error", "Link NGL harus diisi!");
@@ -221,10 +228,10 @@ function cancelSending() {
 
 function confirmSending() {
     confirmationModal.classList.remove("active");
-    startSending();
+    startSending(window.turnstile.getResponse());
 }
 
-async function startSending() {
+async function startSending(cfToken) {
 if (isSending) {
     showAlert("Info", "Sedang mengirim pesan, tunggu hingga selesai!");
     return;
@@ -263,7 +270,7 @@ if (isSending) {
         }, 50);
 
         
-        const result = await sendBulkMessages(currentLink, currentPesan);
+        const result = await sendBulkMessages(currentLink, currentPesan, cfToken);
         
         clearInterval(progressInterval);
         
@@ -310,10 +317,10 @@ if (isSending) {
     }
 }
 
-async function sendBulkMessages(link, message) {
+async function sendBulkMessages(link, message, cfToken) {
     try {
         
-        const apiUrl = `https://api.deline.web.id/tools/spamngl?url=${encodeURIComponent(link)}&message=${encodeURIComponent(message)}`;
+        const apiUrl = `/api/send?link=${encodeURIComponent(link)}&pesan=${encodeURIComponent(message)}&cfToken=${cfToken}`;
         
         
         const controller = new AbortController();
@@ -566,6 +573,12 @@ closeSidebar();
 
 function closeInfoPage(){
 infoPage.classList.remove("active");
+}
+
+let cfPassed = false;
+
+function cfVerified() {
+    cfPassed = true;
 }
 
 const VISIT_KEY = "ngl_unique_device";
