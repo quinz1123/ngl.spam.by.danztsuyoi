@@ -228,10 +228,10 @@ function cancelSending() {
 
 function confirmSending() {
     confirmationModal.classList.remove("active");
-    startSending(window.turnstile.getResponse());
+    startSending();
 }
 
-async function startSending(cfToken) {
+async function startSending() {
 if (isSending) {
     showAlert("Info", "Sedang mengirim pesan, tunggu hingga selesai!");
     return;
