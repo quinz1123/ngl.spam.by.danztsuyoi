@@ -458,23 +458,17 @@ function resetForm() {
 function showSuccessModal() {
     successCount.textContent = sentCount;
     failCount.textContent = failedCount;
-    
-    
-    if (sentCount === totalAttempts) {
-        resultMessage.textContent = "🎉 Semua 25 pesan berhasil dikirim!";
-    } else if (sentCount >= 20) {
-        resultMessage.textContent = "Done yach";
-    } else if (sentCount >= 10) {
-        resultMessage.textContent = "👍 Lumayan, setengah lebih berhasil";
-    } else if (sentCount > 0) {
-        resultMessage.textContent = "⚠️ Hanya sedikit yang berhasil";
+
+    if (sentCount > 0 && failedCount === 0) {
+        resultMessage.textContent = `🎉 ${sentCount} pesan berhasil dikirim!`;
+    } else if (sentCount > 0 && failedCount > 0) {
+        resultMessage.textContent = `⚠️ ${sentCount} berhasil, ${failedCount} gagal`;
     } else {
         resultMessage.textContent = "❌ Semua pesan gagal dikirim";
     }
-    
+
     successModal.classList.add("active");
 }
-
 function closeSuccessModal() {
     successModal.classList.remove("active");
 }
