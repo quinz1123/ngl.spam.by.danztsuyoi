@@ -1,13 +1,13 @@
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD6YeP5f1AQD-abEjT5puQqT7HhysptLQs",
-  authDomain: "ngl-project-9eb40.firebaseapp.com",
-  projectId: "ngl-project-9eb40",
-  storageBucket: "ngl-project-9eb40.appspot.com",
-  messagingSenderId: "744594564980",
-  appId: "1:744594564980:web:26137932ef850ed0c3ee21"
-};
+    apiKey: "AIzaSyDhCFtCq8LepYVfPU_V14XnhYeyOMmPYGk",
+    authDomain: "ngl-spamdanzz.firebaseapp.com",
+    projectId: "ngl-spamdanzz",
+    storageBucket: "ngl-spamdanzz.firebasestorage.app",
+    messagingSenderId: "209353731265",
+    appId: "1:209353731265:web:7a61d652375e065d38b840"
+  };
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
