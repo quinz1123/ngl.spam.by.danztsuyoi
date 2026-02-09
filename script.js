@@ -582,10 +582,18 @@ const visitRef = firebase.firestore().collection("stats").doc("visits");
 
 function getDeviceId() {
     let id = localStorage.getItem(VISIT_KEY);
+
     if (!id) {
-        id = crypto.randomUUID();
+        id =
+            navigator.userAgent +
+            screen.width +
+            screen.height +
+            navigator.language;
+
+        id = btoa(id);
         localStorage.setItem(VISIT_KEY, id);
     }
+
     return id;
 }
 
@@ -606,7 +614,7 @@ async function initCounter() {
             }
 
             if (!devices.includes(deviceId)) {
-                devices.push(deviceId);
+                devices = Array.from(new Set([...devices, deviceId]));
 
                 tx.set(visitRef, {
                     total: total + 1,
