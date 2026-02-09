@@ -640,4 +640,4 @@ window.openStatusPage = openStatusPage;
 window.closeStatusPage = closeStatusPage;
 window.openStatistikPage = openStatistikPage;
 window.closeStatistikPage = closeStatistikPage;
-window.showInfo = showInfo;
+window.showInfo = showInfo; 
