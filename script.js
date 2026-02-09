@@ -280,7 +280,7 @@ if (result.success) {
     const r = result.data.result.result;
 
 sentCount = Number(r.berhasil_dikirim || 0);
-failedCount = Number(r.gagal_dikirim || 0);
+failedCount = totalAttempts - sentCount;
 
     updateProgress(100);
     progressText.textContent = `100% (25/25)`;
@@ -292,7 +292,7 @@ failedCount = Number(r.gagal_dikirim || 0);
     }
 
     updateStatus("✅ Selesai", `Berhasil: ${sentCount}, Gagal: ${failedCount}`, "fa-check-circle");
-    addLog(`🎉 Pengiriman selesai!`, "complete");
+    addLog(`DONE YACH`, "complete");
 } else {
             failedCount = 25;
             addLog(`❌ API Error: ${result.error}`, "error");
