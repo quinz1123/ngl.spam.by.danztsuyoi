@@ -13,15 +13,7 @@
 </head>
 <body>
 
-<!-- Cloudflare Turnstile -->
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
-<div style="margin:15px 0;text-align:center">
-  <div class="cf-turnstile"
-       data-sitekey="0x4AAAAAABqGVQMze8xh5-2C"
-       data-callback="cfVerified">
-  </div>
-</div>
 
 <div id="clearLogModal" class="modal">
 <div class="modal-card">
@@ -203,6 +195,14 @@
                     <p><strong>Info:</strong> Pesan akan dikirim sebanyak 25 kali secara otomatis</p>
                 </div>
 
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<div style="margin:15px 0;text-align:center">
+  <div class="cf-turnstile"
+       data-sitekey="0x4AAAAAABqGVQMze8xh5-2C"
+       data-callback="cfVerified">
+  </div>
+</div>
                 <div class="button-group">
                     <button id="lihat-status" class="btn-secondary" onclick="openStatusPage()">
                         <i class="fas fa-history"></i> Lihat Status
