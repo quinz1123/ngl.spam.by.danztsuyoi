@@ -581,55 +581,55 @@ function cfVerified() {
     cfPassed = true;
 }
 
-const VISIT_KEY = "ngl_unique_device";
+const VISIT_KEY = "ngl_device_id";
 const visitRef = firebase.firestore().collection("stats").doc("visits");
+
+function getDeviceId() {
+    let id = localStorage.getItem(VISIT_KEY);
+    if (!id) {
+        id = crypto.randomUUID();
+        localStorage.setItem(VISIT_KEY, id);
+    }
+    return id;
+}
 
 async function initCounter() {
 
-    if (!localStorage.getItem(VISIT_KEY)) {
-        try {
+    const deviceId = getDeviceId();
 
-            await db.runTransaction(async (transaction) => {
-                const doc = await transaction.get(visitRef);
-                
-                let currentCount = 0;
-                if (doc.exists) {
-                    currentCount = doc.data().total || 0;
-                }
-                
-                
-                transaction.set(visitRef, {
-                    total: currentCount + 1,
-                    lastUpdate: new Date().toISOString(),
+    try {
+        await db.runTransaction(async (tx) => {
+            const doc = await tx.get(visitRef);
+
+            let total = 0;
+            let devices = [];
+
+            if (doc.exists) {
+                total = doc.data().total || 0;
+                devices = doc.data().devices || [];
+            }
+
+            if (!devices.includes(deviceId)) {
+                devices.push(deviceId);
+
+                tx.set(visitRef, {
+                    total: total + 1,
+                    devices: devices,
                     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
                 }, { merge: true });
-            });
-            
-            
-            localStorage.setItem(VISIT_KEY, "true");
-            console.log("Visitor counted for today");
-            
-        } catch (error) {
-            console.error("Error updating counter:", error);
-        }
+            }
+        });
+
+    } catch (e) {
+        console.error(e);
     }
 
-    
-    visitRef.onSnapshot(
-        (doc) => {
-            if (doc.exists) {
-                const count = doc.data().total || 0;
-                const visitCountElement = document.getElementById("visitCount");
-                if (visitCountElement) {
-                    visitCountElement.innerText = count.toLocaleString('id-ID');
-                }
-            }
-        },
-        (error) => {
-            console.error("Error listening to counter:", error);
-            document.getElementById("visitCount").innerText = "0";
+    visitRef.onSnapshot(doc => {
+        if (doc.exists) {
+            document.getElementById("visitCount").innerText =
+                (doc.data().total || 0).toLocaleString("id-ID");
         }
-    );
+    });
 }
 
 window.cancelSending = cancelSending;
@@ -640,4 +640,4 @@ window.openStatusPage = openStatusPage;
 window.closeStatusPage = closeStatusPage;
 window.openStatistikPage = openStatistikPage;
 window.closeStatistikPage = closeStatistikPage;
-window.showInfo = showInfo; 
+window.showInfo = showInfo;
