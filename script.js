@@ -276,8 +276,10 @@ if (isSending) {
         
         
         if (result.success) {
-            sentCount = result.data.result.berhasil_dikirim || 0;
-            failedCount = result.data.result.gagal_dikirim || 0;
+            const r = result.data.result || result.data;
+
+sentCount = Number(r.berhasil_dikirim || 0);
+failedCount = Number(r.gagal_dikirim || 0);
             
             
             updateProgress(100);
