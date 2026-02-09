@@ -576,10 +576,12 @@ infoPage.classList.remove("active");
 }
 
 let cfPassed = false;
+let cfToken = null;
 
-function cfVerified() {
+window.cfVerified = function(token) {
     cfPassed = true;
-}
+    cfToken = token;
+};
 
 const VISIT_KEY = "ngl_device_id";
 const visitRef = firebase.firestore().collection("stats").doc("visits");
