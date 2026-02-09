@@ -1,4 +1,6 @@
 export default async function handler(req, res) {
+
+console.log("CF_SECRET ADA:", !!process.env.CF_SECRET);
   const { link, pesan, cfToken } = req.query;
 
   if (!link || !pesan || !cfToken) {
