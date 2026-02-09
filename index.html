@@ -12,6 +12,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+<!-- Cloudflare Turnstile -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<div style="margin:15px 0;text-align:center">
+  <div class="cf-turnstile"
+       data-sitekey="0x4AAAAAABqGVQMze8xh5-2C"
+       data-callback="cfVerified">
+  </div>
+</div>
+
 <div id="clearLogModal" class="modal">
 <div class="modal-card">
 <h3>Hapus log?</h3>
