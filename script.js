@@ -277,10 +277,10 @@ if (isSending) {
         
 if (result.success) {
 
-    const r = result.data.result || result.data;
+    const r = result.data.result.result;
 
-    sentCount = Number(r.berhasil_dikirim || 0);
-    failedCount = Number(r.gagal_dikirim || 0);
+sentCount = Number(r.berhasil_dikirim || 0);
+failedCount = Number(r.gagal_dikirim || 0);
 
     updateProgress(100);
     progressText.textContent = `100% (25/25)`;
